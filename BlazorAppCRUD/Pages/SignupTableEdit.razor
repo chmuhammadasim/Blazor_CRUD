@@ -1,0 +1,49 @@
+@page "/userdataedit/{Id}"
+
+
+<EditForm Model="@entSignup" OnSubmit="SaveEditSignUp">
+    <table>
+        <tr>
+            <td>First Name</td>
+            <td><InputText DisplayName="CityId" @bind-Value="entSignup.FirstName" ></InputText></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><InputText DisplayName="CityId" @bind-Value="entSignup.LastName" ></InputText></td>
+        </tr>
+        <tr>
+            <td>Father's Name</td>
+            <td><InputText DisplayName="CityId" @bind-Value="entSignup.FatherName" ></InputText></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><InputText DisplayName="CityId" @bind-Value="entSignup.Address" ></InputText></td>
+        </tr>
+        <tr>
+            <td>Phone Number</td>
+            <td><InputText DisplayName="CityId" @bind-Value="entSignup.PhoneNumber" ></InputText></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><InputText DisplayName="CityId" @bind-Value="entSignup.Email" ></InputText></td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td><button type="submit" class="btn btn-primary">Edit</button></td>
+        </tr>
+    </table>
+</EditForm>
+
+@code {
+    [Parameter] public string Id { get; set; }
+    public EntSignup? entSignup { get; set; } = new EntSignup();
+    protected override void OnInitialized()
+    {
+         this.entSignup = DALSignUp.GetById(int.Parse(Id)); 
+    }
+    public void SaveEditSignUp()
+    {
+        DALSignUp.Update(entSignup);
+    }
+}
