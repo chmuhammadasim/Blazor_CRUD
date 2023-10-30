@@ -1,6 +1,5 @@
 @page "/signup"
 
-
 <EditForm Model="@entSignup" OnSubmit="SaveSignUp">
   <div class="form-row">
     <div class="col-md-4 mb-3">
@@ -49,11 +48,12 @@
     private string? Address { get; set; }
     private string? FatherName { get; set; }
     private string? PhoneNumber { get; set; }
-    
+    private bool check { get; set; }
 
   private void SaveSignUp()
   {
-    DALSignUp.Add(entSignup);
+    check=DALSignUp.Add(entSignup);
+    if(check==true){
     this.Email = "";
     this.Password = "";
     this.FirstName = "";
@@ -62,6 +62,10 @@
     this.FatherName = "";
     this.PhoneNumber = "";
     NavigationManager.NavigateTo("/signup",forceLoad:true);
+    }
+    else {
+     JSRuntime.InvokeVoidAsync("alert", "Email already exists");
+    }
   }
 
 }
